@@ -1,0 +1,32 @@
+﻿h2, body {
+	color				: #464646;
+}
+
+h1{
+	font-family    		: "HoeflerText-BlackItalic";
+	font-size        	: 38px;
+	text-overflow		: "ellipsis";
+	text-align			: "center";
+	line-height			: "42px";
+	lines				: 0;
+	color				: #2A2A2A;
+}
+
+h2{
+	font-family    		: "AvenirNextCondensed-Regular";
+	font-size        	: 20;
+	text-overflow		: "ellipsis";
+	text-align			: "center";
+	text-transform		: "uppercase";
+}
+
+body{
+	font-family      	: "AvenirNextCondensed-Regular";
+	font-size        	: 16;
+	text-align			: "center";
+}
+
+i{
+	font-family    		: "AvenirNextCondensed-DemiBold";
+	font-size        	: 16;
+}

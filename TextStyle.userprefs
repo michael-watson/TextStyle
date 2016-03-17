@@ -1,0 +1,9 @@
+﻿<Properties StartupItem="TextStyleDroidDemo/TextStyleDroidDemo.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Clinton Francis" Email="hello@occur.com.au" Copyright="Clinton Francis" Company="Occur" Trademark="" />
+  <MonoDevelop.Ide.ItemProperties.Demos.TextStyleTouchDemo PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.211B3F29-9207-46C4-89E6-1631A123FB12" />
+  <MonoDevelop.Ide.ItemProperties.Demos.TextStyleDroidDemo AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Nexus 5 (Lollipop)" />
+</Properties>
