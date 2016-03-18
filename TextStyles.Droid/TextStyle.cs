@@ -272,8 +272,7 @@ namespace TextStyles.Droid
 			var fontSize = (style.FontSize <= 0f) ? DefaultTextSize : style.FontSize;
 			target.SetTextSize (Android.Util.ComplexUnitType.Sp, fontSize);
 
-			// TODO address issue with main font rendering when this is removed!
-			// beacause non html text never has the font set *duh*
+			// Plain text fonts and colors
 			if (isPlainText) {
 				if (!String.IsNullOrEmpty (style.Color))
 					target.SetTextColor (Color.White.FromHex (style.Color));

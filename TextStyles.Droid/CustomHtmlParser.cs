@@ -105,7 +105,7 @@ namespace TextStyles.Droid
 					TextStyle.Instance._typeFaces.TryGetValue (_defaultStyle.Font, out font);
 
 					var customSpan = new CustomTypefaceSpan ("", font, _defaultStyle);
-					_spannableStringBuilder.SetSpan (customSpan, 0, _spannableStringBuilder.Length (), SpanTypes.User);
+					_spannableStringBuilder.SetSpan (customSpan, 0, _spannableStringBuilder.Length (), SpanTypes.ExclusiveExclusive);
 				}
 			}
 
@@ -121,7 +121,7 @@ namespace TextStyles.Droid
 			text.Replace (startIndex, endIndex, transformed);
 		}
 
-		/*
+		/* Test function, not for use
 		SpannableStringBuilder ReverseSpansTest ()
 		{
 			var allSpans = _spannableStringBuilder.GetSpans (0, _spannableStringBuilder.Length (), Java.Lang.Class.FromType (typeof (Java.Lang.Object)));

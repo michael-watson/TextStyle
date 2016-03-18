@@ -55,9 +55,6 @@ namespace TextStyles.Droid
 		/// <param name="encoding">String encoding type</param>
 		public void Add (object target, string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true, Encoding encoding = null)
 		{
-			// Set the base style for the field
-			TextStyle.SetBaseStyle (styleID, ref customTags); // TODO address this as its being called multiple times for no reason!
-
 			var viewStyle = new ViewStyle ((TextView)target, text, true) {
 				StyleID = styleID,
 				CustomTags = customTags
@@ -175,7 +172,7 @@ namespace TextStyles.Droid
 			var style = TextStyle.GetStyle (StyleID);
 			TextValue = _rawText;
 
-			AttributedValue = ContainsHtml ? TextStyle.CreateHtmlString (TextValue, StyleID, CustomTags) : TextStyle.CreateStyledString (style, TextValue);
+			AttributedValue = ContainsHtml ? TextStyle.CreateHtmlString (_rawText, StyleID, CustomTags) : TextStyle.CreateStyledString (style, _rawText);
 		}
 
 		public void UpdateDisplay ()
