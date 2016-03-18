@@ -29,6 +29,8 @@ namespace TextStyleTouchDemo
 		{
 			base.ViewDidLoad ();
 
+			//TextUtils.ListFontNames ("open");
+
 			// Load the CSS file
 			var style = File.ReadAllText ("StyleOne.css");
 			TextStyle.Instance.SetCSS (style);
@@ -58,7 +60,6 @@ namespace TextStyleTouchDemo
 			_divider.UserInteractionEnabled = false;
 			_divider.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 			Add (_divider);
-
 
 			// Swapping Button
 			var frame = View.Frame;

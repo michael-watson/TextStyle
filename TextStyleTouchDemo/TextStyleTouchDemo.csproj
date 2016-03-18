@@ -9,6 +9,7 @@
     <RootNamespace>TextStyleTouchDemo</RootNamespace>
     <AssemblyName>TextStyleTouchDemo</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -135,6 +136,9 @@
     <BundleResource Include="Resources\StartupLogo%402x.png" />
     <BundleResource Include="Resources\StyleOne.css" />
     <BundleResource Include="Resources\StyleTwo.css" />
+    <BundleResource Include="Resources\BreeSerif-Regular.ttf" />
+    <BundleResource Include="Resources\OpenSans-CondBold.ttf" />
+    <BundleResource Include="Resources\OpenSans-CondLight.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextStyles.Core\TextStyles.Core.csproj">

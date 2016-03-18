@@ -980,6 +980,9 @@ namespace TextStyleDroidDemo
 			// aapt resource value: 0x7f0a000d
 			public const int showTitle = 2131361805;
 			
+			// aapt resource value: 0x7f0a0040
+			public const int space1 = 2131361856;
+			
 			// aapt resource value: 0x7f0a001e
 			public const int split_action_bar = 2131361822;
 			
@@ -991,6 +994,9 @@ namespace TextStyleDroidDemo
 			
 			// aapt resource value: 0x7f0a002b
 			public const int title = 2131361835;
+			
+			// aapt resource value: 0x7f0a0041
+			public const int toggleButton = 2131361857;
 			
 			// aapt resource value: 0x7f0a0020
 			public const int top_action_bar = 2131361824;

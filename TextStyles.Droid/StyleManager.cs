@@ -56,7 +56,7 @@ namespace TextStyles.Droid
 		public void Add (object target, string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true, Encoding encoding = null)
 		{
 			// Set the base style for the field
-			TextStyle.SetBaseStyle (styleID, ref customTags);
+			TextStyle.SetBaseStyle (styleID, ref customTags); // TODO address this as its being called multiple times for no reason!
 
 			var viewStyle = new ViewStyle ((TextView)target, text, true) {
 				StyleID = styleID,
@@ -106,9 +106,9 @@ namespace TextStyles.Droid
 		public void UpdateFrames ()
 		{
 			// Update the frames of any linespaced itemss
-			foreach (var item in _views.Values) {
-				item.UpdateFrame ();
-			}
+			//foreach (var item in _views.Values) {
+			//	item.UpdateFrame ();
+			//}
 		}
 
 		/// <summary>
@@ -163,74 +163,24 @@ namespace TextStyles.Droid
 			_rawText = rawText;
 			_updateConstraints = updateConstraints;
 
-			ContainsHtml = (!String.IsNullOrEmpty (rawText) && Common.MatchHtmlTags.IsMatch (_rawText));
+			ContainsHtml = (!string.IsNullOrEmpty (rawText) && Common.MatchHtmlTags.IsMatch (_rawText));
 		}
 
 		public void UpdateText (string value = null)
 		{
-			if (!String.IsNullOrEmpty (value)) {
+			if (!string.IsNullOrEmpty (value)) {
 				_rawText = value;
 			}
 
 			var style = TextStyle.GetStyle (StyleID);
-			TextValue = TextStyle.ParseString (style, _rawText);
+			TextValue = _rawText;
 
 			AttributedValue = ContainsHtml ? TextStyle.CreateHtmlString (TextValue, StyleID, CustomTags) : TextStyle.CreateStyledString (style, TextValue);
 		}
 
-		public void UpdateFrame ()
-		{
-			var style = TextStyle.GetStyle (StyleID);
-
-			// Offset the frame if needed
-
-			// TODO Update for android
-			/*
-			if (_updateConstraints && style.LineHeight < 0f) {
-				var heightOffset = style.GetLineHeightOffset ();
-				var targetFrame = Target.Frame;
-				targetFrame.Height = (nfloat)Math.Ceiling (targetFrame.Height) + heightOffset;
-
-				if (Target.Constraints.Length > 0) {
-					foreach (var constraint in Target.Constraints) {
-						if (constraint.FirstAttribute == NSLayoutAttribute.Height) {
-							constraint.Constant = targetFrame.Height;
-							break;
-						}
-					}
-				} else {
-					Target.Frame = targetFrame;
-				}
-				}
-				*/
-		}
-
 		public void UpdateDisplay ()
 		{
-			var type = Target.GetType ();
-			var style = TextStyle.GetStyle (StyleID);
-
-			// TODO update for android
-			/*
-			if (type == TextStyle.typeLabel) {
-				var label = Target as UILabel;
-				TextStyle.StyleUILabel (label, style, !ContainsHtml);
-				label.AttributedText = AttributedValue;
-
-			} else if (type == TextStyle.typeTextView) {
-				var textView = Target as UITextView;
-				TextStyle.StyleUITextView (textView, style, !ContainsHtml);
-				textView.AttributedText = AttributedValue;
-
-			} else if (type == TextStyle.typeTextField) {
-				var textField = Target as UITextField;
-				TextStyle.StyleUITextField (textField, style, true);
-				textField.AttributedText = AttributedValue;
-
-			} else {
-				throw new NotSupportedException ("The specified type is not supported, please use a UILabel, UITextView or UITextField: " + type.ToString ());
-			}
-			*/
+			TextStyle.Style (Target, StyleID, _rawText, CustomTags, true);
 		}
 	}
 }

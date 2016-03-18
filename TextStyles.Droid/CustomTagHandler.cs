@@ -9,11 +9,9 @@ using System.Collections.Generic;
 
 namespace TextStyles.Droid
 {
-	public class CustomTagHandler:Java.Lang.Object, Html.ITagHandler
+	public class CustomTagHandler : Java.Lang.Object, Html.ITagHandler
 	{
 		Dictionary<string, TextStyleParameters> _textStyles;
-
-		// TODO Typefaces?
 
 		public CustomTagHandler (Dictionary<string, TextStyleParameters> textStyles)
 		{
@@ -41,7 +39,7 @@ namespace TextStyles.Droid
 					}
 
 					var customSpan = new CustomTypefaceSpan ("", font, style);
-					End (style, text, Class.FromType (typeof(TextStylesObject)), customSpan);
+					End (style, text, Class.FromType (typeof (TextStylesObject)), customSpan);
 				}
 			}
 		}

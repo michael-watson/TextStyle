@@ -12,12 +12,7 @@ namespace TextStyles.Droid
 		/// <param name="color">Target UIColor</param>
 		public static string ToHex (this Color color)
 		{
-			int r, g, b;
-			r = (int)(255.0 * color.R);
-			g = (int)(255.0 * color.G);
-			b = (int)(255.0 * color.B);
-
-			return string.Format ("#{0:X2}{1:X2}{2:X2}", r, g, b);
+			return string.Format ("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
 		}
 
 
@@ -39,8 +34,10 @@ namespace TextStyles.Droid
 		/// <param name="color">Extension UIColor reference</param>
 		/// <param name="hexValue">Hex value as an int</param>
 		/// <param name="alpha">Alpha value of the color</param>
-		public static Color FromHex (this Color color, string hexValue, float alpha = 1.0f)
+		public static Color FromHex (this Color color, string hexValue, float alpha = 1f)
 		{
+			//return Color.ParseColor (hexValue);
+
 			int red, green, blue, iAlpha;
 			var colorString = hexValue.Replace ("#", "");
 			iAlpha = (int)Math.Round (255f / alpha);
@@ -64,6 +61,14 @@ namespace TextStyles.Droid
 					red = Convert.ToInt32 (colorString.Substring (0, 2), 16);
 					green = Convert.ToInt32 (colorString.Substring (2, 2), 16);
 					blue = Convert.ToInt32 (colorString.Substring (4, 2), 16);
+					return new Color (red, green, blue, iAlpha);
+				}
+			case 8: // #AARRGGBB
+				{
+					iAlpha = Convert.ToInt32 (colorString.Substring (0, 2), 16);
+					red = Convert.ToInt32 (colorString.Substring (2, 2), 16);
+					green = Convert.ToInt32 (colorString.Substring (4, 2), 16);
+					blue = Convert.ToInt32 (colorString.Substring (6, 2), 16);
 					return new Color (red, green, blue, iAlpha);
 				}
 

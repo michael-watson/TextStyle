@@ -19,6 +19,12 @@ namespace TextStyleDroidDemo
 		const string headingThree = @"Is that little <spot>extra</spot>";
 		const string textBody = @"Geometry can produce legible letters but <i>art alone</i> makes them beautiful.<p>Art begins where geometry ends, and imparts to letters a character trascending mere measurement.</p>";
 
+		StyleManager _styleManager;
+		string _cssOne;
+		string _cssTwo;
+
+		bool _isFirstStyleSheet = true;
+
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
@@ -26,36 +32,51 @@ namespace TextStyleDroidDemo
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-			string style;
-			using (var sr = new StreamReader (Assets.Open ("StyleOne.css"))) {
-				style = sr.ReadToEnd ();
-			}
+			_cssOne = OpenCSSFile ("StyleOne.css");
+			_cssTwo = OpenCSSFile ("StyleTwo.css");
 
-			TextStyle.Instance.SetCSS (style);
 			TextStyle.Instance.AddFont ("Archistico", "Archistico_Simple.ttf");
 			TextStyle.Instance.AddFont ("Avenir-Medium", "Avenir-Medium.ttf");
 			TextStyle.Instance.AddFont ("Avenir-Book", "Avenir-Book.ttf");
 			TextStyle.Instance.AddFont ("Avenir-Heavy", "Avenir-Heavy.ttf");
+			TextStyle.Instance.AddFont ("BreeSerif-Regular", "BreeSerif-Regular.ttf");
+			TextStyle.Instance.AddFont ("OpenSans-CondBold", "OpenSans-CondBold.ttf");
+			TextStyle.Instance.AddFont ("OpenSans-CondLight", "OpenSans-CondLight.ttf");
 
-			// TEMP
-			var stopwatch = Stopwatch.StartNew ();
+			TextStyle.Instance.SetCSS (_cssOne);
 
-			var viewHeadingOne = FindViewById<TextView> (Resource.Id.labelOne);
-			TextStyle.Style<TextView> (viewHeadingOne, "h2", headingOne);
+			var labelOne = FindViewById<TextView> (Resource.Id.labelOne);
+			var labelTwo = FindViewById<TextView> (Resource.Id.labelTwo);
+			var labelThree = FindViewById<TextView> (Resource.Id.labelThree);
+			var body = FindViewById<TextView> (Resource.Id.body);
 
-			var viewHeadingTwo = FindViewById<TextView> (Resource.Id.labelTwo);
-			TextStyle.Style<TextView> (viewHeadingTwo, "h1", headingTwo);
-
-			var viewHeadingThree = FindViewById<TextView> (Resource.Id.labelThree);
-			TextStyle.Style<TextView> (viewHeadingThree, "h2", headingThree, new List<CssTagStyle> {
-				new CssTagStyle ("spot"){ CSS = "spot{color:#ff6b00;}" }
+			// Create a StyleManager to handle any CSS changes automatically
+			_styleManager = new StyleManager ();
+			_styleManager.Add (labelOne, "h2", headingOne);
+			_styleManager.Add (labelTwo, "h1", headingTwo);
+			_styleManager.Add (labelThree, "h2", headingThree, new List<CssTagStyle> {
+				new CssTagStyle ("spot"){ CSS = "spot{color:" + Colors.SpotColor.ToHex () + "}" }
 			});
+			_styleManager.Add (body, "body", textBody);
 
-			var viewBody = FindViewById<TextView> (Resource.Id.body);
-			TextStyle.Style<TextView> (viewBody, "body", textBody);
+			var toggleButton = FindViewById<Button> (Resource.Id.toggleButton);
+			toggleButton.Click += (sender, e) => {
+				Console.WriteLine ("Toggled");
 
-			// TEMP
-			Console.WriteLine ("Elapsed time {0}", stopwatch.ElapsedMilliseconds);
+				var css = _isFirstStyleSheet ? _cssTwo : _cssOne;
+				_isFirstStyleSheet = !_isFirstStyleSheet;
+				TextStyle.Instance.SetCSS (css);
+			};
+		}
+
+		string OpenCSSFile (string filename)
+		{
+			string style;
+			using (var sr = new StreamReader (Assets.Open (filename))) {
+				style = sr.ReadToEnd ();
+			}
+
+			return style;
 		}
 	}
 }

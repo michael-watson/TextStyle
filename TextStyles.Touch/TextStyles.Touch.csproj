@@ -43,6 +43,7 @@
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="StyleManager.cs" />
     <Compile Include="TextStyle.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

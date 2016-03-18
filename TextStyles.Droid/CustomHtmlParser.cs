@@ -97,6 +97,18 @@ namespace TextStyles.Droid
 				}
 			}
 
+			// Apply the default style to the entire text range
+			if (_defaultStyle != null) {
+
+				Typeface font = null;
+				if (!string.IsNullOrEmpty (_defaultStyle.Font)) {
+					TextStyle.Instance._typeFaces.TryGetValue (_defaultStyle.Font, out font);
+
+					var customSpan = new CustomTypefaceSpan ("", font, _defaultStyle);
+					_spannableStringBuilder.SetSpan (customSpan, 0, _spannableStringBuilder.Length (), SpanTypes.User);
+				}
+			}
+
 			return _spannableStringBuilder;
 		}
 
@@ -108,6 +120,26 @@ namespace TextStyles.Droid
 			var transformed = TextStyle.ParseString (style, text.SubSequence (startIndex, endIndex));
 			text.Replace (startIndex, endIndex, transformed);
 		}
+
+		/*
+		SpannableStringBuilder ReverseSpansTest ()
+		{
+			var allSpans = _spannableStringBuilder.GetSpans (0, _spannableStringBuilder.Length (), Java.Lang.Class.FromType (typeof (Java.Lang.Object)));
+			var reversedSpans = new SpannableStringBuilder (_spannableStringBuilder.ToString ());
+
+			if (allSpans?.Length > 0) {
+				for (int i = allSpans.Length - 1; i >= 0; --i) {
+					var start = _spannableStringBuilder.GetSpanStart (allSpans [i]);
+					var end = _spannableStringBuilder.GetSpanEnd (allSpans [i]);
+					var spanTypes = _spannableStringBuilder.GetSpanFlags (allSpans [i]);
+
+					reversedSpans.SetSpan (allSpans [i], start, end, spanTypes);
+				}
+			}
+
+			return reversedSpans;
+		}
+		*/
 
 		class MasterStyleObject : Java.Lang.Object
 		{
@@ -240,9 +272,9 @@ namespace TextStyles.Droid
 		static Java.Lang.Object getLast (ISpanned text, Java.Lang.Class kind)
 		{
 			/*
-         * This knows that the last returned object from getSpans()
-         * will be the most recently added.
-         */
+		 * This knows that the last returned object from getSpans()
+		 * will be the most recently added.
+		 */
 			Java.Lang.Object [] objs = text.GetSpans (0, text.Length (), kind);
 
 			if (objs.Length == 0) {
@@ -439,9 +471,9 @@ namespace TextStyles.Droid
 			StringBuilder sb = new StringBuilder ();
 
 			/*
-	         * Ignore whitespace that immediately follows other whitespace;
-	         * newlines count as spaces.
-	         */
+			 * Ignore whitespace that immediately follows other whitespace;
+			 * newlines count as spaces.
+			 */
 
 			for (int i = 0; i < length; i++) {
 				char c = ch [i + start];

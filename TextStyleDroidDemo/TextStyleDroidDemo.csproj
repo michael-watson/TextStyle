@@ -55,6 +55,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Colors.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -81,6 +82,9 @@
     <AndroidAsset Include="Assets\Avenir-Book.ttf" />
     <AndroidAsset Include="Assets\Avenir-Heavy.ttf" />
     <AndroidAsset Include="Assets\Avenir-Medium.ttf" />
+    <AndroidAsset Include="Assets\BreeSerif-Regular.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-CondBold.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-CondLight.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextStyles.Droid\TextStyles.Droid.csproj">
