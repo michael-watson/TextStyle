@@ -177,7 +177,7 @@ namespace TextStyles.iOS
 		/// <param name="useExistingStyles">Existing CSS styles willl be used If set to <c>true</c></param>
 		/// <param name="encoding">String encoding type</param>
 		/// <typeparam name="T">Text container type (UIlabel, UITextView, UITextField)</typeparam>
-		public static T Create<T> (string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true, NSStringEncoding encoding = NSStringEncoding.UTF8)
+		public static T Create<T> (string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true)
 		{
 			var isHTML = (!string.IsNullOrEmpty (text) && Common.MatchHtmlTags.IsMatch (text));
 			var target = Activator.CreateInstance<T> ();
@@ -191,7 +191,7 @@ namespace TextStyles.iOS
 			}
 
 			var formattedText = isHTML ?
-				TextStyle.CreateHtmlString (text, customTags, useExistingStyles, encoding) :
+				TextStyle.CreateHtmlString (text, customTags, useExistingStyles) :
 				TextStyle.CreateStyledString (styleID, text);
 
 			var type = typeof (T);

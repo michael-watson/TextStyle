@@ -33,6 +33,12 @@ namespace TextStyles.Android
 
 		static TextStyleParameters _defaultStyle;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:TextStyles.Android.CustomHtmlParser"/> class.
+		/// </summary>
+		/// <param name="source">Source.</param>
+		/// <param name="textStyles">Text styles.</param>
+		/// <param name="defaultStyleID">Default style identifier.</param>
 		public CustomHtmlParser (string source, Dictionary<string, TextStyleParameters> textStyles, string defaultStyleID = null)
 		{
 			_htmlSource = source;
@@ -45,6 +51,9 @@ namespace TextStyles.Android
 			_tagHandler = new CustomTagHandler (textStyles);
 		}
 
+		/// <summary>
+		/// Convert the source to an ISpanned instance.
+		/// </summary>
 		public ISpanned Convert ()
 		{
 			_reader.ContentHandler = this;
@@ -112,6 +121,14 @@ namespace TextStyles.Android
 			return _spannableStringBuilder;
 		}
 
+		/// <summary>
+		/// Transforms the text case within the given range.
+		/// </summary>
+		/// <returns>The text range.</returns>
+		/// <param name="text">Text.</param>
+		/// <param name="style">Style.</param>
+		/// <param name="startIndex">Start index.</param>
+		/// <param name="endIndex">End index.</param>
 		static void TransformTextRange (SpannableStringBuilder text, TextStyleParameters style, int startIndex, int endIndex)
 		{
 			if (startIndex == endIndex)
@@ -121,32 +138,14 @@ namespace TextStyles.Android
 			text.Replace (startIndex, endIndex, transformed);
 		}
 
-		/* Test function, not for use
-		SpannableStringBuilder ReverseSpansTest ()
-		{
-			var allSpans = _spannableStringBuilder.GetSpans (0, _spannableStringBuilder.Length (), Java.Lang.Class.FromType (typeof (Java.Lang.Object)));
-			var reversedSpans = new SpannableStringBuilder (_spannableStringBuilder.ToString ());
-
-			if (allSpans?.Length > 0) {
-				for (int i = allSpans.Length - 1; i >= 0; --i) {
-					var start = _spannableStringBuilder.GetSpanStart (allSpans [i]);
-					var end = _spannableStringBuilder.GetSpanEnd (allSpans [i]);
-					var spanTypes = _spannableStringBuilder.GetSpanFlags (allSpans [i]);
-
-					reversedSpans.SetSpan (allSpans [i], start, end, spanTypes);
-				}
-			}
-
-			return reversedSpans;
-		}
-		*/
-
-		class MasterStyleObject : Java.Lang.Object
-		{
-		}
-
 		#region Methods in progress
 
+		/// <summary>
+		/// Handles the start of an HTML tag.
+		/// </summary>
+		/// <returns>The start tag.</returns>
+		/// <param name="tag">Tag.</param>
+		/// <param name="attributes">Attributes.</param>
 		void handleStartTag (String tag, IAttributes attributes)
 		{
 			if (tag != _defaultStyle?.Name && _styles.ContainsKey (tag)) {
@@ -199,6 +198,11 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Handles the end of an HTML tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="tag">CSS Tag Name</param>
 		void handleEndTag (String tag)
 		{
 			if (tag != _defaultStyle?.Name && _styles.ContainsKey (tag)) {
@@ -248,6 +252,11 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Handles the P tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">Text within the P Tag</param>
 		static void handleP (SpannableStringBuilder text)
 		{
 			int len = text.Length ();
@@ -264,11 +273,22 @@ namespace TextStyles.Android
 				text.Append ("\n\n");
 		}
 
+		/// <summary>
+		/// Handles the br tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">Inserts a break</param>
 		static void handleBr (SpannableStringBuilder text)
 		{
 			text.Append ("\n");
 		}
 
+		/// <summary>
+		/// Gets the last instance of a given Spanned Object
+		/// </summary>
+		/// <returns>The instance of a Spanned Object</returns>
+		/// <param name="text">The text contained within the span</param>
+		/// <param name="kind">Object type</param>
 		static Java.Lang.Object getLast (ISpanned text, Java.Lang.Class kind)
 		{
 			/*
@@ -284,12 +304,22 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Specified the start of a span object
+		/// <param name="text">String Builder instance</param>
+		/// <param name="mark">Type of Object to use for the span</param>
 		static void start (SpannableStringBuilder text, Java.Lang.Object mark)
 		{
 			int len = text.Length ();
 			text.SetSpan (mark, len, len, SpanTypes.MarkMark);
 		}
 
+		/// <summary>
+		/// Ends the span of an object
+		/// </summary>
+		/// <param name="text">String Builder instance</param>
+		/// <param name="kind">Type of Object to use for the span</param>
+		/// <param name="repl">Type of Object to replace for the span.</param>
 		void end (SpannableStringBuilder text, Java.Lang.Class kind, Java.Lang.Object repl)
 		{
 			int len = text.Length ();
@@ -307,6 +337,13 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Handles IMG tags
+		/// </summary>
+		/// <returns>The image.</returns>
+		/// <param name="text">Text.</param>
+		/// <param name="attributes">Attributes.</param>
+		/// <param name="img">Image.</param>
 		static void startImg (SpannableStringBuilder text, IAttributes attributes, Html.IImageGetter img)
 		{
 			var src = attributes.GetValue ("src");
@@ -332,6 +369,12 @@ namespace TextStyles.Android
 
 		}
 
+		/// <summary>
+		/// Starts a font tag
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">SpannableStringBuilder</param>
+		/// <param name="attributes">IAttributes</param>
 		static void startFont (SpannableStringBuilder text, IAttributes attributes)
 		{
 			String color = attributes.GetValue ("color");
@@ -341,6 +384,11 @@ namespace TextStyles.Android
 			text.SetSpan (new Font (color, face), len, len, SpanTypes.MarkMark);
 		}
 
+		/// <summary>
+		/// Ends a font tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">SpannableStringBuilder</param>
 		static void endFont (SpannableStringBuilder text)
 		{
 			int len = text.Length ();
@@ -381,6 +429,12 @@ namespace TextStyles.Android
 
 		}
 
+		/// <summary>
+		/// Starts an A tag
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">SpannableStringBuilder</param>
+		/// <param name="attributes">IAttributes</param>
 		static void startA (SpannableStringBuilder text, IAttributes attributes)
 		{
 			String href = attributes.GetValue ("href");
@@ -389,6 +443,11 @@ namespace TextStyles.Android
 			text.SetSpan (new Href (href), len, len, SpanTypes.MarkMark);
 		}
 
+		/// <summary>
+		/// Ends an A tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">SpannableStringBuilder</param>
 		static void endA (SpannableStringBuilder text)
 		{
 			int len = text.Length ();
@@ -407,6 +466,11 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Ends a Header tag.
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="text">SpannableStringBuilder</param>
 		static void endHeader (SpannableStringBuilder text)
 		{
 			int len = text.Length ();

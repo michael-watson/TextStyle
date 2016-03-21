@@ -85,7 +85,7 @@ namespace TextStyles.Core
 	/// <summary>
 	/// Text style parameters.
 	/// </summary>
-	public class TextStyleParameters:Object
+	public class TextStyleParameters : Object
 	{
 		#region CSS Properties
 
@@ -185,7 +185,7 @@ namespace TextStyles.Core
 		/// </summary>
 		/// <value>The padding.</value>
 		[CssAttribute ("padding")]
-		public float[] Padding { get; set; }
+		public float [] Padding { get; set; }
 
 		/// <summary>
 		/// Sets the bottom padding of an element
@@ -237,7 +237,7 @@ namespace TextStyles.Core
 		/// Stores reference to the raw CSS
 		/// </summary>
 		/// <value>The raw CS.</value>
-		public string RawCSS{ get; set; }
+		public string RawCSS { get; set; }
 
 		#endregion
 
@@ -269,7 +269,7 @@ namespace TextStyles.Core
 		/// <param name="value">Value.</param>
 		public void SetValue (string propertyName, object value)
 		{
-			Type myType = typeof(TextStyleParameters);                   
+			Type myType = typeof (TextStyleParameters);
 			PropertyInfo myPropInfo = myType.GetRuntimeProperty (propertyName);
 			myPropInfo.SetValue (this, value, null);
 		}
@@ -281,7 +281,7 @@ namespace TextStyles.Core
 		/// <param name="propertyName">Property name.</param>
 		public object GetValue (string propertyName)
 		{
-			Type myType = typeof(TextStyleParameters);                   
+			Type myType = typeof (TextStyleParameters);
 			PropertyInfo myPropInfo = myType.GetRuntimeProperty (propertyName);
 			return myPropInfo.GetValue (this, null);
 		}
@@ -295,14 +295,19 @@ namespace TextStyles.Core
 			return FontSize - LineHeight;
 		}
 
-		public void Merge (TextStyleParameters source, bool overwriteExisting)
+		/// <summary>
+		/// Merge the specified style with this instance and optionally ovwerite any conflicting parameters
+		/// </summary>
+		/// <param name="style">Source.</param>
+		/// <param name="overwriteExisting">Overwrite existing.</param>
+		public void Merge (TextStyleParameters style, bool overwriteExisting)
 		{
-			Type t = typeof(TextStyleParameters);
+			Type t = typeof (TextStyleParameters);
 
 			var properties = t.GetRuntimeProperties ().Where (prop => prop.CanRead && prop.CanWrite);
 
 			foreach (var prop in properties) {
-				var sourceValue = prop.GetValue (source, null);
+				var sourceValue = prop.GetValue (style, null);
 
 				if (sourceValue != null) {
 					var targetValue = prop.GetValue (this, null);

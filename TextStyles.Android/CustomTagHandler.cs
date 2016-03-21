@@ -20,7 +20,14 @@ namespace TextStyles.Android
 
 		#region ITagHandler implementation
 
-
+		/// <summary>
+		/// Handles a custom tag
+		/// </summary>
+		/// <returns>void</returns>
+		/// <param name="opening">bool</param>
+		/// <param name="tag">string</param>
+		/// <param name="output">IEditable</param>
+		/// <param name="xmlReader">IXMLReader</param>
 		public void HandleTag (bool opening, string tag, IEditable output, Org.Xml.Sax.IXMLReader xmlReader)
 		{
 			TextStyleParameters style;
@@ -44,12 +51,24 @@ namespace TextStyles.Android
 			}
 		}
 
+		/// <summary>
+		/// Start the tag
+		/// </summary>
+		/// <param name="text">SpannableStringBuilder</param>
+		/// <param name="mark">Java.Lang.Object</param>
 		static void Start (SpannableStringBuilder text, Java.Lang.Object mark)
 		{
 			var length = text.Length ();
 			text.SetSpan (mark, length, length, SpanTypes.MarkMark);
 		}
 
+		/// <summary>
+		/// End the specified tag
+		/// </summary>
+		/// <param name="style">TextStyleParameters</param>
+		/// <param name="text">SpannableStringBuilder</param>
+		/// <param name="kind">Class</param>
+		/// <param name="newSpan">Java.Lang.Object</param>
 		static void End (TextStyleParameters style, SpannableStringBuilder text, Class kind, Java.Lang.Object newSpan)
 		{
 			var length = text.Length ();
@@ -65,10 +84,12 @@ namespace TextStyles.Android
 				text.SetSpan (newSpan, start, length, SpanTypes.ExclusiveExclusive);
 		}
 
-		/*
-         * This knows that the last returned object from getSpans()
-         * will be the most recently added.
-         */
+		/// <summary>
+		/// Gets the last instance of an Object
+		/// </summary>
+		/// <returns>Java.Lang.Object</returns>
+		/// <param name="text">ISpanned</param>
+		/// <param name="kind">Class</param>
 		static Java.Lang.Object GetLast (ISpanned text, Class kind)
 		{
 			var length = text.Length ();
