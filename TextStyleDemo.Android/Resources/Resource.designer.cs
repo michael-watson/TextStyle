@@ -799,6 +799,12 @@ namespace TextStyleDemo.Android
 			// aapt resource value: 0x7f020056
 			public const int abc_textfield_searchview_right_holo_light = 2130837590;
 			
+			// aapt resource value: 0x7f020057
+			public const int arrowIcon = 2130837591;
+			
+			// aapt resource value: 0x7f020058
+			public const int refreshIcon = 2130837592;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -938,6 +944,9 @@ namespace TextStyleDemo.Android
 			// aapt resource value: 0x7f0a002f
 			public const int radio = 2131361839;
 			
+			// aapt resource value: 0x7f0a0041
+			public const int refreshIcon = 2131361857;
+			
 			// aapt resource value: 0x7f0a0032
 			public const int search_badge = 2131361842;
 			
@@ -994,9 +1003,6 @@ namespace TextStyleDemo.Android
 			
 			// aapt resource value: 0x7f0a002b
 			public const int title = 2131361835;
-			
-			// aapt resource value: 0x7f0a0041
-			public const int toggleButton = 2131361857;
 			
 			// aapt resource value: 0x7f0a0020
 			public const int top_action_bar = 2131361824;

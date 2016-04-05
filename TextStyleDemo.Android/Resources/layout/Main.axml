@@ -7,7 +7,8 @@
         android:id="@+id/labelOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="30sp"
+        android:paddingTop="30sp"
+        android:paddingBottom="15sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:text="Label One" />
@@ -15,7 +16,7 @@
         android:id="@+id/labelTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="30sp"
+        android:paddingBottom="15sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:text="Label Two" />
@@ -27,10 +28,15 @@
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:text="Label Three" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray" />
     <TextView
         android:id="@+id/body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mi urna, semper eu ipsum eu, ornare placerat ex. Fusce consectetur, elit ut sodales hendrerit, elit orci cursus magna, in facilisis tellus ipsum ut lacus. Vivamus pretium pulvinar justo, et scelerisque urna viverra eu. Praesent condimentum eu lorem eget sagittis. Nam turpis orci, aliquam vitae lectus sed, ultricies fermentum elit." />
@@ -38,9 +44,9 @@
         android:layout_width="match_parent"
         android:layout_height="80sp"
         android:id="@+id/space1" />
-    <Button
-        android:text="Toggle"
+    <ImageButton
+        android:src="@drawable/refreshicon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton" />
+        android:id="@+id/refreshIcon" />
 </LinearLayout>
