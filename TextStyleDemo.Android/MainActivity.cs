@@ -58,7 +58,7 @@ namespace TextStyleDemo.Android
 			});
 			_styleManager.Add (body, "body", textBody);
 
-			var toggleButton = FindViewById<Button> (Resource.Id.toggleButton);
+			var toggleButton = FindViewById<ImageButton> (Resource.Id.refreshIcon);
 			toggleButton.Click += (sender, e) => {
 				Console.WriteLine ("Toggled");
 

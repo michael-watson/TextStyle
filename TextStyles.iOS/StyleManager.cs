@@ -28,9 +28,9 @@ namespace TextStyles.iOS
 		/// <param name="useExistingStyles">Existing CSS styles willl be used If set to <c>true</c></param>
 		/// <param name="encoding">String encoding type</param>
 		/// <typeparam name="T">Text container type (UIlabel, UITextView, UITextField)</typeparam>
-		public T Create<T> (string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true, NSStringEncoding encoding = NSStringEncoding.UTF8)
+		public T Create<T> (string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true)
 		{
-			var target = TextStyle.Create<T> (styleID, text, customTags, useExistingStyles, encoding);
+			var target = TextStyle.Create<T> (styleID, text, customTags, useExistingStyles);
 			TextStyle.SetBaseStyle (styleID, ref customTags);
 
 			var reference = new ViewStyle (target as UIView, text, true) {
@@ -52,7 +52,7 @@ namespace TextStyles.iOS
 		/// <param name="customTags">A list of custom <c>CSSTagStyle</c> instances that set the styling for the html</param>
 		/// <param name="useExistingStyles">Existing CSS styles willl be used If set to <c>true</c></param>
 		/// <param name="encoding">String encoding type</param>
-		public void Add (object target, string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true, NSStringEncoding encoding = NSStringEncoding.UTF8)
+		public void Add (object target, string styleID, string text = "", List<CssTagStyle> customTags = null, bool useExistingStyles = true)
 		{
 			// Set the base style for the field
 			TextStyle.SetBaseStyle (styleID, ref customTags);
